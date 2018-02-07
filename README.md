@@ -322,4 +322,8 @@ Envoi de SMS d’arrivée aux contacts d’urgence (via l’application mobile):
 2)	L’utilisateur pousse le joystick du bracelet connecté vers le bas.
 3)	Les données se téléchargent depuis le site.
 
-
+# Contributeurs :
+* Rina ATTIEH
+* Sylia BENKAROUN ([Github](https://github.com/SyliaBen))
+* Chloé DUMONT ([Github](https://github.com/cloclod7) / [Gitlab](https://gitlab.com/chloe.dumont))
+* Céline REVERDY ([Github](https://github.com/creverdy) / [Gitlab](https://gitlab.com/celinereverdy))
