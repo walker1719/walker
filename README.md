@@ -323,7 +323,7 @@ Envoi de SMS d’arrivée aux contacts d’urgence (via l’application mobile):
 3)	Les données se téléchargent depuis le site.
 
 # Contributeurs :
-* Rina ATTIEH
+* Rina ATTIEH ([Gitlab](https://gitlab.com/Rina.attieh))
 * Sylia BENKAROUN ([Github](https://github.com/SyliaBen))
 * Chloé DUMONT ([Github](https://github.com/cloclod7) / [Gitlab](https://gitlab.com/chloe.dumont))
 * Céline REVERDY ([Github](https://github.com/creverdy) / [Gitlab](https://gitlab.com/celinereverdy))
