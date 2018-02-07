@@ -37,6 +37,7 @@ Redémarrez  la RPI3 :
 
 ### Mettre en place le “Serial Port Profile” SPP sur la Pi. 
 Modifier ce fichier:
+
 ```sudo nano /etc/systemd/system/dbus-org.bluez.service```
 
 Ajouter ‘-C’ à la fin de la ligne ‘'ExecStart=' line,  pour démarrer le démon bluetooth en mode 'compatibilité'.
