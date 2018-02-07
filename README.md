@@ -110,7 +110,8 @@ Récupérez la configuration affichée à l’écran pour la mettre dans le fich
 
 exemple de contenu du fichier : 
 
-```[gammu]
+```
+[gammu]
 device = /dev/ttyUSB0
 connection = at19200
 name = Phone on USB serial port ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ HUAWEI_Mobile
@@ -129,7 +130,8 @@ device = /dev/ttyUSB2
 connection = at19200
 name = Phone on USB serial port ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ HUAWEI_Mobile
 synchronizetime = yes
-gammucoding = utf8```
+gammucoding = utf8
+```
 
 ### Vérifiez les caractéristiques de la clé 3g 
 ```gammu --identify```
