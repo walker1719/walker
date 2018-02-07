@@ -96,8 +96,8 @@ exemple de résultat obtenu :
   Bus 001 Device 009: ID 12d1:1001 Huawei Technologies Co., Ltd. E169/E620/E800 HSDPA Modem
  
 ### Mettre à jour le système 
-```sudo apt-get update
-sudo apt-get upgrade```
+```sudo apt-get update```
+```sudo apt-get upgrade```
 
 ### Installez Gammu 
 ```sudo apt-get install gammu``` 
