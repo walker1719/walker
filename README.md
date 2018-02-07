@@ -41,7 +41,7 @@ Envoi de SMS d’arrivée aux contacts d’urgence (via l’application mobile):
 3)	L’envoi de SMS est annulé.
 
 ## Fermeture forcée de la connexion bluetooth 
-1)	En cas d’erreur lors de la déconnexion : la déconnexion ne s’effectue pas côté bracelet connecté, l’icone affichant le symbole « bluetooth » restera affiché sur la matrice de LED. Pour forcer la déconnexion, il suffit de pousser le joystick du bracelet connecté vers le bas. 
+1)	En cas d’erreur lors de la déconnexion : la déconnexion ne s’effectue pas côté bracelet connecté, l’icone affichant le symbole « bluetooth » restera affiché sur la matrice de LED. Pour forcer la déconnexion, il suffit de pousser longuement le joystick du bracelet connecté vers le bas. 
 2)	La matrice de LED devrait s’éteindre pour montrer que la connexion est désormais fermée.
 
 ## Fermer une randonnée
@@ -50,7 +50,7 @@ Envoi de SMS d’arrivée aux contacts d’urgence (via l’application mobile):
 
 ## Téléchargement des itinéraires
 1)	Si de nouveaux itinéraires ont été mis en ligne sur le site « walkerpfe-rando.ovh », l’utilisateur peut mettre à jour son bracelet en récupérant les coordonnées des itinéraires.
-2)	L’utilisateur clique longuement sur le joystick du bracelet connecté.
+2)	L’utilisateur pousse le joystick du bracelet connecté vers le bas.
 3)	Les données se téléchargent depuis le site.
 
 
