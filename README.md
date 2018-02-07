@@ -54,8 +54,11 @@ Voilà vous avez maintenant réussi à mettre en place le Bluetooth sur la RPI3 
 Utilisez CRON pour exécuter un fichier au démarrage de la Pi
 
 1. Ouvrir un terminal et entrez cette ligne de commande :
+
 ```sudo crontab -e```
+
 2.  Ajouter à la fin du fichier: 
+
 ```@reboot username /usr/bin/python  absolute_path_to_file ```	
 
 Selon l’architecture de nos fichiers, nous avons écrit cette commande:
@@ -90,8 +93,20 @@ Votre clé GPS est maintenant prête à être utilisée par le code de Walker.
 
 
 ## ENVOI DE SMS 
-Afin d’envoyer un SMS depuis une Raspberry Pi, il faut installer le logiciel Gammu. Gammu est un logiciel libre de gestion de téléphone portable fonctionnant sous Linux ou Windows. Il permet de gérer l’envoi de SMS (avec ou sans accusé de réception), la gestion du répertoire, des appels et la création de sauvegardes (messages, répertoires). Ici nous nous intéressons uniquement à l’envoi de SMS.
-Branchez votre clé GSM à un port USB de la Raspberry Pi. Dans notre cas, nous avons utilisé une clé Huawei E3531. Ci-dessous un lien contenant la liste des clés compatibles avec Gammu : 
+Afin d’envoyer un SMS depuis une Raspberry Pi, il faut installer le logiciel Gammu. Gammu est un logiciel libre de gestion de téléphone portable fonctionnant sous Linux ou Windows. 
+
+Il permet de gérer :
+- l’envoi de SMS (avec ou sans accusé de réception)
+- la gestion du répertoire, des appels 
+- la création de sauvegardes (messages, répertoires). 
+
+Ici nous nous intéressons uniquement à l’envoi de SMS.
+
+### Branchez votre clé GSM à un port USB de la Raspberry Pi.
+
+Dans notre cas, nous avons utilisé une clé Huawei E3531. 
+
+Ci-dessous un lien contenant la liste des clés compatibles avec Gammu : 
 
 [Référence](https://fr.wammu.eu/phones/)
 
@@ -110,7 +125,9 @@ ou
 
 exemple de résultat obtenu : 
 
+```
   Bus 001 Device 009: ID 12d1:1001 Huawei Technologies Co., Ltd. E169/E620/E800 HSDPA Modem
+```
  
 ### Mettre à jour le système 
 ```sudo apt-get update```
@@ -153,22 +170,27 @@ gammucoding = utf8
 
 exemple de résultat obtenu :
 
+```
           Périphérique : /dev/ttyUSB0
           Fabricant : Huawei
           Modèle : E169 (E169)
           Firmware : 11.314.13.51.156
           IMEI : 352835031664512
+```
 
 En cas d’erreur le message suivant apparaît : Carte SIM non accessible. Dans ce cas soit : 
 - La carte SIM n’est pas compatible avec le modèle de clé GMS 
 - La clé GSM n’est pas compatible avec Gammu. Dans ce cas, se référer à la liste des clé compatibles. 
 
-Si un code PIN est activé 
-```gammu getsecuritystatus```
-      Waiting for PIN.
-```gammu entersecuritycode PIN 1234```
-```gammu getsecuritystatus```
-      Nothing to enter.
+Si un code PIN est activé : 
+
+```
+gammu getsecuritystatus
+Waiting for PIN.
+gammu entersecuritycode PIN 1234```
+gammu getsecuritystatus```
+ Nothing to enter.
+ ```
 
 ### Envoyez un SMS 
 ```gammu sendsms TEXT 06xxxxxxxx -text "Test 1"```
@@ -187,7 +209,8 @@ Sending SMS 1/1....waiting for network answer..OK, message reference=1
 L’utilisateur doit pousser le joystick de la Sense HAT vers le haut afin d’ouvrir une connexion bluetooth côté Raspberry Pi. 
 En effet, cet action déclenche le script bash “walker.sh” qui ouvre le port rfcomm hci0 en et lance en parallèle un script python “read.py” : 
 
-Ligne de commande afin d’ouvrir le port (dans le fichier walker.sh) : 
+Ligne de commande afin d’ouvrir le port (dans le fichier walker.sh) :
+
 ```sudo rfcomm listen hci0```
 
 Le script “read.py” attend une connexion bluetooth côté application mobile.
@@ -213,14 +236,19 @@ cordova plugin add cordova-plugin-bluetooth-serial
 [Référence](https://github.com/don/BluetoothSerial/tree/master/examples/SimpleSerial)
 
 Ensuite, configurez l’adresse MAC de votre bracelet. 
+
 Vous devez modifier la variable “macAddress” des fonction “openPort” et “closePort”  dans les fichiers:
+
+```
 “www/trek/controllers.js” ;
 “www/scripts/user_settings/controllers.js “ en entrant l'adresse MAC de votre appareil à coupler. 
+```
 
 Afin que les fonctionnalités bluetooth s’effectuent, il faut obligatoirement que votre appareil soit déjà appairé à la RPI3.
 
 ## ENVOI DE SMS DEPUIS L’APPLICATION CORDOVA 
 Pour envoyer des SMS depuis l’application Cordova de Geotrek Mobile, il faut ajouter le plugin suivant:
+
 ```cordova plugin add cordova-sms-plugin```
 
 [Référence](https://github.com/cordova-sms/cordova-sms-plugin)
@@ -238,9 +266,9 @@ Ensuite déployez le code avec la commande:
 
 ## PROBLEME/SOLUTION
 
-BIND -> address already in use  -> sudo rfcomm release 0 
+Si lors de la tentative de connexion vous obtenez le message : "Address already in use", tappez : 
 
-
+```sudo rfcomm release 0``` 
 
 # GUIDE UTILISATEUR
 
