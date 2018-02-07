@@ -10,7 +10,7 @@ alt="Walker" width="480" height="360" border="10" /></a>
 Pour ce projet, nous avons utilisé :
 - [Raspberry PI 3](https://www.amazon.fr/Raspberry-Pi-Carte-M%C3%A8re-Model/dp/B01CD5VC92/ref=sr_1_4?s=computers&ie=UTF8&qid=1518003274&sr=1-4&keywords=raspberry+pi+3)
 - [Carte SenseHAT](https://www.amazon.fr/Raspberry-Pi-FBA_2483095-Sense-Hat/dp/B014T2IHQ8/ref=sr_1_1?s=computers&ie=UTF8&qid=1518002911&sr=1-1&keywords=sensehat)
-- [Clé GPS](https://www.amazon.fr/G-souris-Glonass-Navigation-Support-Windows/dp/B015E2XSSO);
+- [Clé GPS](https://www.amazon.fr/G-souris-Glonass-Navigation-Support-Windows/dp/B015E2XSSO)
 - [Clé 3G/GMS Huawei E3531](https://www.amazon.fr/Huawei-E3531-Surf-Stick-HSUPA-Blanc/dp/B00HSZEY34/ref=sr_1_1?s=computers&ie=UTF8&qid=1518003051&sr=1-1&keywords=huawei+E3531) 
 
 Pour l’application qui est reliée à la RPI 3,  nous avons choisi l’application Geotrek Mobile qui utilise les technologies suivantes:  Cordova 3.6, AngularJS 1.2, Ionic beta 9, Leaflet, jQuery, Bourbon et les outils : Grunt, Bower, Sass.
