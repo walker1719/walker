@@ -8,10 +8,10 @@ alt="Walker" width="240" height="180" border="10" /></a>
 
 # DOCUMENTATION WALKER
 Pour ce projet, nous avons utilisé :
-une Raspberry PI 3 possédant un module BLE;
-un module SenseHat muni d’un carré de LED, d’un accéléromètre, d’un magnétomètre;
-une clé GPS ;
-une clé 3G/GMS Huawei E3531. 
+- une Raspberry PI 3 possédant un module BLE;
+- un module SenseHat muni d’un carré de LED, d’un accéléromètre, d’un magnétomètre;
+- une clé GPS ;
+- une clé 3G/GMS Huawei E3531. 
 
 Pour l’application qui est reliée à la RPI 3,  nous avons choisi l’application Geotrek Mobile qui utilise les technologies suivantes:  Cordova 3.6, AngularJS 1.2, Ionic beta 9, Leaflet, jQuery, Bourbon et les outils : Grunt, Bower, Sass.
 Voir les installations à faire pour l’application sur : https://github.com/GeotrekCE/Geotrek-mobile
@@ -23,43 +23,52 @@ LIGNES DE COMMANDES RPI :
 ## INSTALLATION DU BLUETOOTH SUR LA RPI3
 Pour implémenter le Bluetooth Low Energy entre le bracelet et l’application Cordova, il faut faire quelques installations sur la RPI3.
 ### Installer les logiciels, pi-bluetooth, bluez et blueman
-sudo apt-get install pi-bluetooth
+```sudo apt-get install pi-bluetooth```
+
 (Bluez et Blueman devraient déjà être installé si vous utilisez une Raspbian Jessie)
-sudo apt-get install bluetooth bluez blueman
+```sudo apt-get install bluetooth bluez blueman```
+
 Redémarrez  la RPI3
-sudo reboot
+```sudo reboot```
 
 [Référence](http://helloraspberrypi.blogspot.fr/2016/03/setup-bluetooth-for-raspberry-pi.html)
 
 ### Mettre en place le “Serial Port Profile” SPP sur la Pi. 
 Modifier ce fichier:
-sudo nano /etc/systemd/system/dbus-org.bluez.service 
+```sudo nano /etc/systemd/system/dbus-org.bluez.service```
+
 Ajouter ‘-C’ à la fin de la ligne ‘'ExecStart=' line,  pour démarrer le démon bluetooth en mode 'compatibilité'.
+
 Ajoutez un nouveau 'ExecStartPost =' immédiatement après cette ligne, pour ajouter le profil SP.
+
 Les deux lignes devraient ressembler à ceci:
+```
 ExecStart=/usr/lib/bluetooth/bluetoothd -C
 ExecStartPost=/usr/bin/sdptool add SP
-
+```
 Sauvegarder et redémarrez la RPI3
 
 Voilà vous avez maintenant réussi à mettre en place le Bluetooth sur la RPI3 ! 
 
 ### Executer les scripts au démarrage de la RPI3
-Utilisez CRON pour exécuter un fichier au démarrage de la pi 
-Ouvrir un terminal et entrez cette ligne de commande 
-sudo crontab -e 
+Utilisez CRON pour exécuter un fichier au démarrage de la Pi
+
+1. Ouvrir un terminal et entrez cette ligne de commande :
+```sudo crontab -e```
 2.  Ajouter à la fin du fichier: 
-@reboot username /usr/bin/python  absolute_path_to_file 	
-Selon l’architecture de nos fichiers, nous avons écrit cette commande
+```@reboot username /usr/bin/python  absolute_path_to_file ```	
+
+Selon l’architecture de nos fichiers, nous avons écrit cette commande:
+```
 @reboot username /usr/bin/python /home/pi/Documents/Test_BLE/init.py
 @reboot permet au fichier d'être exécuté au démarrage de la RPI3.
-
+```
 3. Redémarrez la RPI3 pour enregistrer les modifications.
 
 [Référence](https://stackoverflow.com/questions/30005635/why-doesnt-my-python-script-open-a-text-file-when-run-via-cron?lq=1)
 
 ## INSTALLATION DE LA LIBRAIRE SENSEHAT 
-sudo apt-get install sense-hat 
+```sudo apt-get install sense-hat``` 
 
 
 
@@ -71,7 +80,7 @@ Vous pouvez ensuite brancher la clé GPS à la Raspberry Pi, et exécuter la com
 Vous devriez voir les informations reçues par le GPS dans votre terminal. Si aucune valeur ne s’affiche, c’est surement que le GPS n’arrive à se connecter à aucun satellite. Il est préférable d’être à l’extérieur ou vers une fenêtre et d’attendre quelques instants pour que le GPS capte une localisation.
 Votre clé GPS est maintenant prête à être utilisée par le code de Walker.
 
-Référence: http://www.danmandle.com/blog/getting-gpsd-to-work-with-python/ 
+[Référence]:http://www.danmandle.com/blog/getting-gpsd-to-work-with-python/ 
 
 
 
@@ -79,7 +88,9 @@ Référence: http://www.danmandle.com/blog/getting-gpsd-to-work-with-python/
 ## ENVOI DE SMS 
 Afin d’envoyer un SMS depuis une Raspberry Pi, il faut installer le logiciel Gammu. Gammu est un logiciel libre de gestion de téléphone portable fonctionnant sous Linux ou Windows. Il permet de gérer l’envoi de SMS (avec ou sans accusé de réception), la gestion du répertoire, des appels et la création de sauvegardes (messages, répertoires). Ici nous nous intéressons uniquement à l’envoi de SMS.
 Branchez votre clé GSM à un port USB de la Raspberry Pi. Dans notre cas, nous avons utilisé une clé Huawei E3531. Ci-dessous un lien contenant la liste des clés compatibles avec Gammu : 
-https://fr.wammu.eu/phones/
+
+[Référence]:https://fr.wammu.eu/phones/
+
 ### Vérifiez si la clé est bien détectée par le système et compatible. 
 ```dmesg | grep tty | grep usb``` 
 
