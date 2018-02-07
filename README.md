@@ -258,7 +258,9 @@ Pour envoyer des SMS depuis l’application Cordova de Geotrek Mobile, il faut a
 
 [Référence](https://github.com/cordova-sms/cordova-sms-plugin)
 
-## Génération et déploiement du code sur votre appareil
+## GENERATION ET DEPLOIEMENT DU CODE SUR VOTRE APPAREIL
+Après avoir suivi les instructions de [Geotrek-Mobile](https://github.com/GeotrekCE/Geotrek-mobile) pour le déploiement de l'application, remplacez les fichiers de votre projet Cordova ```www/views/trek_detail.html```, ```www/views/user_settings.html```, ```www/scripts/trek/controllers.js``` et ```/www/scripts/user-settings/controllers.js``` par les fichiers du même nom présents sur ce dépot dans le dossier [Cordova](https://github.com/walker1719/walker/tree/master/Cordova).
+
 Si ce n’est pas encore fait, ajoutez les plateformes android et/ou ios
 
 ```cordova platform add android```
@@ -273,7 +275,8 @@ Ensuite déployez le code avec la commande:
 
 Si lors de la tentative de connexion vous obtenez le message : "Address already in use", tappez : 
 
-```sudo rfcomm release 0``` 
+```sudo rfcomm release 0```
+
 
 # GUIDE UTILISATEUR
 
