@@ -1,9 +1,9 @@
-# WALKER
+![alt text](https://github.com/walker1719/walker/blob/master/logo.png)
 Le bracelet connecté pour la randonnée liée à l'application GEOTREK.
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=hwP3JeXwsJ0
 " target="_blank"><img src="http://img.youtube.com/vi/hwP3JeXwsJ0/0.jpg" 
-alt="Walker" width="240" height="180" border="10" /></a>
+alt="Walker" width="480" height="360" border="10" /></a>
 
 
 # DOCUMENTATION WALKER
@@ -232,7 +232,8 @@ cordova run
 BIND -> address already in use  -> sudo rfcomm release 0 
 
 
-## GUIDE UTILISATEUR
+
+# GUIDE UTILISATEUR
 
 ### Définition et envoi des contacts d’urgence
 1)	L’utilisateur clique sur le bouton « Paramètres »
