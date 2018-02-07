@@ -209,6 +209,7 @@ Ce fonctionnement est identique pour l’envoi de l’ID de randonnée. Dans ce 
 ## GESTION DU BLUETOOTH SUR L’APPLICATION CORDOVA
 Pour gérer le Bluetooth depuis l’application Cordova de Geotrek Mobile, il faut ajouter le plugin suivant:
 cordova plugin add cordova-plugin-bluetooth-serial
+
 [Référence](https://github.com/don/BluetoothSerial/tree/master/examples/SimpleSerial)
 
 Ensuite, configurez l’adresse MAC de votre bracelet. 
@@ -220,13 +221,14 @@ Afin que les fonctionnalités bluetooth s’effectuent, il faut obligatoirement 
 
 ## ENVOI DE SMS DEPUIS L’APPLICATION CORDOVA 
 Pour envoyer des SMS depuis l’application Cordova de Geotrek Mobile, il faut ajouter le plugin suivant:
-cordova plugin add cordova-sms-plugin
+```cordova plugin add cordova-sms-plugin```
+
 [Référence](https://github.com/cordova-sms/cordova-sms-plugin)
 
 ## Génération et déploiement du code sur votre appareil
 Si ce n’est pas encore fait, ajoutez les plateformes android et/ou ios
-cordova platform add android
-cordova platform add ios
+```cordova platform add android```
+```cordova platform add ios```
 
 Ensuite déployez le code avec la commande:
 cordova run 
