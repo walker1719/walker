@@ -84,6 +84,7 @@ https://fr.wammu.eu/phones/
 ```dmesg | grep tty | grep usb``` 
 
 exemple de résultat obtenu : 
+
  	[ 5806.660785] usb 1-1.5: GSM modem (1-port) converter now attached to ttyUSB0
  	[ 5806.662796] usb 1-1.5: GSM modem (1-port) converter now attached to ttyUSB1
  	[ 5806.664577] usb 1-1.5: GSM modem (1-port) converter now attached to ttyUSB2
@@ -93,6 +94,7 @@ ou
 ```lsusb | grep -i Huawei```
 
 exemple de résultat obtenu : 
+
   Bus 001 Device 009: ID 12d1:1001 Huawei Technologies Co., Ltd. E169/E620/E800 HSDPA Modem
  
 ### Mettre à jour le système 
@@ -105,8 +107,10 @@ exemple de résultat obtenu :
 ```gammu-detect``` 
 
 Récupérez la configuration affichée à l’écran pour la mettre dans le fichier /etc/gammurc  
+
 exemple de contenu du fichier : 
-[gammu]
+
+```[gammu]
 device = /dev/ttyUSB0
 connection = at19200
 name = Phone on USB serial port ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ HUAWEI_Mobile
@@ -125,11 +129,13 @@ device = /dev/ttyUSB2
 connection = at19200
 name = Phone on USB serial port ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ HUAWEI_Mobile
 synchronizetime = yes
-gammucoding = utf8
+gammucoding = utf8```
 
 ### Vérifiez les caractéristiques de la clé 3g 
 ```gammu --identify```
+
 exemple de résultat obtenu :
+
           Périphérique : /dev/ttyUSB0
           Fabricant : Huawei
           Modèle : E169 (E169)
