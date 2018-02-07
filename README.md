@@ -74,13 +74,17 @@ Selon l’architecture de nos fichiers, nous avons écrit cette commande:
 
 ## UTILISATION DU GPS
 Avant de brancher la clé GPS à la Raspberry Pi, exécutez la commande suivante pour faire les installations nécessaires :
+
 ```sudo apt-get install python gpsd gpsd-clients```
+
 Vous pouvez ensuite brancher la clé GPS à la Raspberry Pi, et exécuter la commande :
+
 ```cgps```
+
 Vous devriez voir les informations reçues par le GPS dans votre terminal. Si aucune valeur ne s’affiche, c’est surement que le GPS n’arrive à se connecter à aucun satellite. Il est préférable d’être à l’extérieur ou vers une fenêtre et d’attendre quelques instants pour que le GPS capte une localisation.
 Votre clé GPS est maintenant prête à être utilisée par le code de Walker.
 
-[Référence]:http://www.danmandle.com/blog/getting-gpsd-to-work-with-python/ 
+[Référence](http://www.danmandle.com/blog/getting-gpsd-to-work-with-python/)
 
 
 
@@ -89,7 +93,7 @@ Votre clé GPS est maintenant prête à être utilisée par le code de Walker.
 Afin d’envoyer un SMS depuis une Raspberry Pi, il faut installer le logiciel Gammu. Gammu est un logiciel libre de gestion de téléphone portable fonctionnant sous Linux ou Windows. Il permet de gérer l’envoi de SMS (avec ou sans accusé de réception), la gestion du répertoire, des appels et la création de sauvegardes (messages, répertoires). Ici nous nous intéressons uniquement à l’envoi de SMS.
 Branchez votre clé GSM à un port USB de la Raspberry Pi. Dans notre cas, nous avons utilisé une clé Huawei E3531. Ci-dessous un lien contenant la liste des clés compatibles avec Gammu : 
 
-[Référence]:https://fr.wammu.eu/phones/
+[Référence](https://fr.wammu.eu/phones/)
 
 ### Vérifiez si la clé est bien détectée par le système et compatible. 
 ```dmesg | grep tty | grep usb``` 
