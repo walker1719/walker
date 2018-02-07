@@ -14,7 +14,7 @@ Pour ce projet, nous avons utilisé :
 - [Clé 3G/GMS Huawei E3531](https://www.amazon.fr/Huawei-E3531-Surf-Stick-HSUPA-Blanc/dp/B00HSZEY34/ref=sr_1_1?s=computers&ie=UTF8&qid=1518003051&sr=1-1&keywords=huawei+E3531) 
 
 Pour l’application qui est reliée à la RPI 3,  nous avons choisi l’application Geotrek Mobile qui utilise les technologies suivantes:  Cordova 3.6, AngularJS 1.2, Ionic beta 9, Leaflet, jQuery, Bourbon et les outils : Grunt, Bower, Sass.
-Voir les installations à faire pour l’application sur : https://github.com/GeotrekCE/Geotrek-mobile
+Voir les installations à faire pour l’application sur : [Réference](https://github.com/GeotrekCE/Geotrek-mobile)
 
 
 
@@ -26,9 +26,11 @@ Pour implémenter le Bluetooth Low Energy entre le bracelet et l’application C
 ```sudo apt-get install pi-bluetooth```
 
 (Bluez et Blueman devraient déjà être installé si vous utilisez une Raspbian Jessie)
+
 ```sudo apt-get install bluetooth bluez blueman```
 
-Redémarrez  la RPI3
+Redémarrez  la RPI3 :
+
 ```sudo reboot```
 
 [Référence](http://helloraspberrypi.blogspot.fr/2016/03/setup-bluetooth-for-raspberry-pi.html)
