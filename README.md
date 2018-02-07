@@ -227,11 +227,15 @@ Pour envoyer des SMS depuis l’application Cordova de Geotrek Mobile, il faut a
 
 ## Génération et déploiement du code sur votre appareil
 Si ce n’est pas encore fait, ajoutez les plateformes android et/ou ios
-```cordova platform add android```
-```cordova platform add ios```
+```
+cordova platform add android
+cordova platform add ios
+```
 
 Ensuite déployez le code avec la commande:
-cordova run 
+```
+cordova run
+```
 
 ## PROBLEME/SOLUTION
 
