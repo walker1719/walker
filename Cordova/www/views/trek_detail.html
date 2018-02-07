@@ -1,0 +1,366 @@
+<div class="modal">
+
+    <!-- Modal header bar -->
+    <ion-header-bar class="bar-secondary">
+        <button class="button button-back button-icon" ng-click="back()">
+            <i class="icon ion-android-arrow-back"></i>
+            {{ 'cancel' | translate }}
+        </button>
+        <div class="buttons pull-right modal__actions">
+            <button ng-if="false" class="button button-icon" ng-click="newTask()">
+                <i class="icon ion-android-forums"></i>
+            </button>
+            <button class="button button-icon" ng-click="share()">
+                <i class="icon ion-android-share"></i>
+            </button>
+        </div>
+    </ion-header-bar>
+
+    <!-- Modal content area -->
+    <ion-content overflow-scroll="false" class="modal-content" delegate-handle="modalScroll">
+        <div class="download-advice" ng-if="network_available || trek.tiles.isDownloaded">
+            <button ng-if="!trek.tiles.isDownloaded && !trek.tiles.inDownloadProgress" ng-class="{active: trek.tiles.inDownloadProgress}" class="button" ng-click="downloadFiles()">
+                <div class="icon-container">
+                    <i class="icon ion-android-download"></i>
+                </div>
+                <div class="text-container">
+                    <span >{{'trek_detail.download_trek' | translate}}</span>
+                </div>
+            </button>
+            <span ng-if="trek.tiles.inDownloadProgress">{{'trek_detail.download_in_progress' | translate}} {{ trek.tiles.realProgress }}%</span>
+            <span ng-if="trek.tiles.isDownloaded && !trek.tiles.inDownloadProgress">{{'trek_detail.trek_downloaded' | translate}}</span>
+            <!-- Envoyer ID trajet -->
+            <button id="sendIdBtn" class="button" style="margin-top:3%;" ng-click="sendTrekIdViaBluetooth(trek.id)">Commencer</button>
+            <div id="myId" style="display:none;"></div>
+            <div id="message" style="margin-top:3%;"></div>
+        </div>
+        <div class="trek-detail padding">
+            <div ng-if="parentId && currentParent" class="current-parent-element" ng-click="goToTrekById(currentParent.id)">
+                <i class="icon ion-chevron-up"></i>
+                <span>{{'trek_detail.parent' | translate}}</span> <span>{{currentParent.properties.name}}</span>
+            </div>
+            <div ng-if="parentId && (next || previous)" class="next-prev-elements">
+                <div class="row">
+                    <div class="col" ng-click="goToTrekById(previous.id, parentId)" ng-if="previous">
+                        <i class="icon ion-chevron-left"></i>
+                        <p><span class="step-number" ng-bind="previous.stepNumber"></span>{{previous.properties.name}}</p>
+                    </div>
+                    <div class="col" ng-click="goToTrekById(next.id, parentId)" ng-if="next">
+                        <p><span class="step-number" ng-bind="next.stepNumber"></span>{{next.properties.name}}</p>
+                        <i class="icon ion-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="trek-detail__header">
+                <h1 class="trek-detail__title"><span class="step-number" ng-if="trek.stepNumber" ng-bind="trek.stepNumber"></span>{{ trek.properties.name }}</h1>
+                <p class="trek-detail__municipality">{{ 'trek_detail.cities' | translate }} {{ trek.properties.cities[0].name }}</p>
+                <p ng-if="trek.properties.departure || trek.properties.arrival" class="trek-detail__departure-arrival"><span ng-if="trek.properties.departure">{{ 'trek_detail.departure' | translate }} {{ trek.properties.departure }}</span><span ng-if="trek.properties.departure && trek.properties.arrival"> → </span><span ng-if="trek.properties.arrival">{{ 'trek_detail.arrival' | translate }} {{ trek.properties.arrival }}</span></p>
+            </div>
+            <h3 class="trek-detail__subtitle" ng-bind-html="trek.properties.description_teaser"></h3>
+            <p class="trek-detail__ambiance" ng-bind-html="trek.properties.ambiance"></p>
+
+            <ul class="trek-detail__main-infos">
+                <li ng-if="trek.properties.duration_pretty" class="trek-detail__main-infos__item duration">
+                    <div><i class="icon ion-android-clock"></i></div>
+                    <div><span>{{ trek.properties.duration_pretty }}</span></div>
+                </li><!--
+                --><li ng-if="trek.properties.difficulty" class="trek-detail__main-infos__item difficulty">
+                    <div><i class="icon ion-connection-bars"></i></div>
+                    <div><span>{{ trek.properties.difficulty.label }}</span></div>
+                </li><!--
+                --><li ng-if="trek.properties.ascent" class="trek-detail__main-infos__item ascent">
+                    <div><i class="icon ion-arrow-graph-up-right"></i></div>
+                    <div><span>{{ trek.properties.ascent }} m</span></div>
+                </li><!--
+                --><li ng-if="trek.properties.length" class="trek-detail__main-infos__item total-length">
+                    <div><img src="images/length.svg"></div>
+                    <div><span>{{ trek.properties.length/1000 | number:2 }} km</span></div>
+                </li><!--
+                --><li ng-if="trek.properties.route" class="trek-detail__main-infos__item route">
+                    <div><i class="icon ion-arrow-swap"></i></div>
+                    <div><span>{{ trek.properties.route.label }}</span></div>
+                </li><!--
+                --><li ng-if="trek.distanceFromUser" class="trek-detail__main-infos__item location" ng-if="trek.distanceFromUser">
+                    <div><i class="icon ion-android-locate"></i></div>
+                    <div><span>{{'trek_list.distance.to' | translate}}{{ trek.distanceFromUser }} km</span></div>
+                </li>
+            </ul>
+
+            <ul class="trek-detail__extra-infos row">
+                <li ng-if="trek.properties.usages.length > 0 || trek.properties.accessibilities.length > 0" class="col trek-detail__extra-infos__item">
+                    <div class="trek-detail__extra-infos__item__title">{{ 'map_trek_detail.usages' | translate }}</div>
+                    <div class="trek-detail__extra-infos__item__value" ng-repeat="usage in trek.properties.usages">
+                        <img ng-if="usage.pictogram" class="icon" ng-src="{{ usage.pictogram }}"/>
+                        <span ng-if="usage.label" class="label">{{ usage.label }}</span>
+                    </div>
+                    <div class="trek-detail__extra-infos__item__value" ng-repeat="accessibility in trek.properties.accessibilities">
+                        <img ng-if="accessibility.pictogram" class="icon" ng-src="{{ accessibility.pictogram }}"/>
+                        <span ng-if="accessibility.label" class="label">{{ accessibility.label }}</span>
+                    </div>
+                </li>
+
+                <li ng-if="trek.properties.themes" class="col trek-detail__extra-infos__item">
+                    <div class="trek-detail__extra-infos__item__title">{{ 'trek_detail.themes' | translate }}</div>
+                    <div class="trek-detail__extra-infos__item__value" ng-repeat="theme in trek.properties.themes">
+                        <img ng-if="theme.pictogram" class="icon" ng-src="{{ theme.pictogram }}"/>
+                        <span ng-if="theme.label" class="label">{{ theme.label }}</span>
+                    </div>
+                </li>
+            </ul>
+
+            <ion-slide-box show-pager="true" disable-scroll="false">
+                <ion-slide ng-repeat="picture in trek.properties.pictures">
+                    <img ng-if="network_available || trek.tiles.isDownloaded" ng-src="{{ picture.url }}">
+                    <div class="no-image" ng-if="!network_available && !trek.tiles.isDownloaded">
+                        <span>
+                            {{ 'image.connect' | translate }}
+                        </span>
+                    </div>
+                    <span ng-if="picture.legend || picture.author" class="slider-legend">{{ picture.legend }} ({{ picture.author }})</span>
+                </ion-slide>
+            </ion-slide-box>
+
+            <div>
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.description' | translate }}</h2>
+                <div>
+                    <p class="description" ng-bind-html="mainDescription">
+                        {{ trek.properties.description }}
+                    </p>
+                    <p ng-repeat="district in trek.properties.districts">
+                        {{ district.name.join(', ') }}
+                    </p>
+                </div>
+                <div ng-if="trek.properties.networks" class="trek-detail__extra-infos">
+                    <div class="trek-detail__extra-infos__item">
+                        <div class="trek-detail__extra-infos__item__title">{{ 'trek_detail.networks' | translate }}</div>
+                        <div class="trek-detail__extra-infos__item__value wrapper" ng-repeat="network in trek.properties.networks">
+                            <img class="icon icon-network" ng-src="{{ network.pictogram }}"/>
+                            <span class="label">{{network.name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="activateElevation">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.elevation' | translate }}</h2>
+                <div>
+                    <img class="trek-detail__altimetric-profile" ng-src="{{ trek.properties.altimetric_profile }}"/>
+                    <p>{{ 'trek_detail.min_elevation' | translate }} : {{ trek.properties.min_elevation }} m</p>
+                    <p>{{ 'trek_detail.max_elevation' | translate }} : {{ trek.properties.max_elevation }} m</p>
+                </div>
+            </div>
+
+            <div class="trek-detail__park-centered" ng-if="trek.properties.is_park_centered">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.rules' | translate }}</h2>
+                <div>
+                    <span>{{ 'trek_detail.park_centered' | translate }}</span>
+                    <img class="rules-picture" src="images/reglementation.jpg" alt="rules">
+                </div>
+            </div>
+
+            <div ng-if="trek.properties.public_transport">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.public_transport' | translate }}</h2>
+                <p ng-bind-html="trek.properties.public_transport"></p>
+            </div>
+
+            <div ng-if="trek.properties.access">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.road_access' | translate }}</h2>
+                <p ng-bind-html="trek.properties.access"></p>
+            </div>
+
+            <div ng-if="trek.properties.advised_parking">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.advised_parking' | translate }}</h2>
+                <p ng-bind-html="trek.properties.advised_parking"></p>
+            </div>
+
+            <div ng-if="trek.properties.advice">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.advice' | translate }}</h2>
+                <p ng-bind-html="trek.properties.advice"></p>
+            </div>
+
+            <div ng-if="trek.properties.disabled_infrastructure">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.disabled_infrastructure' | translate }}</h2>
+                <p ng-bind-html="trek.properties.disabled_infrastructure"></p>
+            </div>
+
+            <div ng-if="trek.properties.information_desks.length > 0">
+                <h2 class="trek-detail__section-title">{{ 'trek_detail.information_desks' | translate }}</h2>
+                <div>
+                    <ion-item ng-if="trek.properties.information_desks.length > 0" class="" ng-repeat="information_desk in trek.properties.information_desks">
+                        <div class="information-desk">
+                            <h3 ng-bind-html="information_desk.name"></h3>
+                            <img ng-if="network_available || trek.tiles.isDownloaded" ng-src="{{information_desk.photo_url}}">
+                            <p ng-bind-html="information_desk.description"></p>
+                            <p ng-bind-html="information_desk.street"></p>
+                            <p>{{ information_desk.postal_code}} {{ information_desk.municipality}}</p>
+                            <p>
+                                <a href="{{information_desk.website}}">{{ 'trek_detail.website' | translate }}</a> -
+                                <a href="mailto:{{information_desk.email}}">{{ 'trek_detail.email' | translate }}</a> -
+                                <a href="tel:{{information_desk.phone}}">{{information_desk.phone}}</a>
+                            </p>
+                        </div>
+                    </ion-item>
+                </div>
+            </div>
+
+            <div class="collapsable-container" ng-if="children.length > 0">
+                <div class="collapsable-title" id="childrenCollapse" ng-click="toggleCollapse('childrenCollapse');">
+                    <div class="collapsable-icon">
+                        <i ng-if="childrenCollapse" class="ion-plus"></i>
+                        <i ng-if="!childrenCollapse" class="ion-minus"></i>
+                    </div>
+                    <h2 class="trek-detail__section-title">
+                        <span>{{ 'trek_detail.children' | translate }}</span>
+                        <span class="collapsable-counter" ng-if="showCollapseableCounter">({{children.length}})</span>
+                    </h2>
+                </div>
+                <div class="collapsable-content" ng-class="{collapsed: childrenCollapse}">
+                    <ion-item ng-if="children.length > 0" class="child-list__item item-thumbnail-left item-complex" ng-repeat="child in children | orderBy: 'stepNumber' track by child.id" ng-click="goToTrekById(child.id, trek.id)">
+                        <div class="item-content">
+                            <img class="thumbnail" ng-src="{{ child.properties.thumbnail }}"/>
+                            <h3><span class="step-number" ng-bind="child.stepNumber"></span>{{ child.properties.name }}</h3>
+                            <p ng-if="child.properties.departure" class="departure">{{ 'trek_list.departure' | translate }} : {{ child.properties.departure }}</p>
+                            <p ng-if="child.properties.category.label" class="category">
+                                <span>{{ 'trek_list.trek' | translate }}</span>
+                                <span>{{ child.properties.category.label }}</span>
+                            </p>
+                            <p class="infos">
+                                <span ng-if="child.properties.difficulty.label">{{ child.properties.difficulty.label }}</span>
+                                <span ng-if="child.properties.duration_pretty">{{ child.properties.duration_pretty }}</span>
+                                <span ng-if="child.properties.length">{{ child.properties.length/1000 | number:2 }} km</span>
+                            </p>
+                            <p ng-if="child.distanceFromUser">{{ 'trek_list.distance' | translate }} : {{'trek_list.distance.to' | translate}}{{ child.distanceFromUser }} km</p>
+                            <div class="child-list__item__detail__actions">
+                                <i ng-if="child.tiles.isDownloaded && !child.tiles.inDownloadProgress" class="icon ion-android-download"></i>
+                            </div>
+                        </div>
+                    </ion-item>
+                </div>
+            </div>
+
+            <div class="collapsable-container" ng-if="parents.length > 0">
+                <div class="collapsable-title" id="parentCollapse" ng-click="toggleCollapse('parentCollapse');">
+                    <div class="collapsable-icon">
+                        <i ng-if="parentCollapse" class="ion-plus"></i>
+                        <i ng-if="!parentCollapse" class="ion-minus"></i>
+                    </div>
+                    <h2 class="trek-detail__section-title">
+                        <span>{{ 'trek_detail.parents' | translate }}</span>
+                        <span class="collapsable-counter" ng-if="showCollapseableCounter">({{parents.length}})</span>
+                    </h2>
+                </div>
+                <div class="collapsable-content" ng-class="{collapsed: parentCollapse}">
+                    <ion-item ng-if="parents.length > 0" class="parent-list__item item-thumbnail-left item-complex" ng-click="goToTrekById(parent.id)" ng-repeat="parent in parents track by parent.id">
+                        <div class="item-content">
+                            <img class="thumbnail" ng-src="{{ parent.properties.thumbnail }}"/>
+                            <h3>{{ parent.properties.name }}</h3>
+                            <p ng-if="parent.properties.departure" class="departure">{{ 'trek_list.departure' | translate }} : {{ parent.properties.departure }}</p>
+                            <p ng-if="parent.properties.category.label" class="category">
+                                <span>{{ 'trek_list.trek' | translate }}</span>
+                                <span>{{ parent.properties.category.label }}</span>
+                            </p>
+                            <p class="infos">
+                                <span ng-if="parent.properties.difficulty.label">{{ parent.properties.difficulty.label }}</span>
+                                <span ng-if="parent.properties.duration_pretty">{{ parent.properties.duration_pretty }}</span>
+                                <span ng-if="parent.properties.length">{{ parent.properties.length/1000 | number:2 }} km</span>
+                            </p>
+                            <p ng-if="parent.distanceFromUser">{{ 'trek_list.distance' | translate }} : {{'trek_list.distance.to' | translate}}{{ parent.distanceFromUser }} km</p>
+                            <div class="parent-list__item__detail__actions">
+                                <i ng-if="parent.tiles.isDownloaded && !parent.tiles.inDownloadProgress" class="icon ion-android-download"></i>
+                            </div>
+                        </div>
+                    </ion-item>
+                </div>
+            </div>
+
+            <div class="collapsable-container" ng-if="pois.features.length > 0">
+                <div class="collapsable-title" id="poiCollapse" ng-click="toggleCollapse('poiCollapse');">
+                    <div class="collapsable-icon">
+                        <i ng-if="poiCollapse" class="ion-plus"></i>
+                        <i ng-if="!poiCollapse" class="ion-minus"></i>
+                    </div>
+                    <h2 class="trek-detail__section-title">
+                        <span>{{ 'trek_detail.on_road' | translate }}</span>
+                        <span class="collapsable-counter" ng-if="showCollapseableCounter">({{pois.features.length}})</span>
+                    </h2>
+                </div>
+                <div class="collapsable-content" ng-class="{collapsed: poiCollapse}">
+                    <ion-item ng-if="pois.features.length > 0" class="poi-detail" ng-repeat="poi in pois.features" ng-init="picture=poi.properties.pictures[0]">
+                        <div class="header">
+                            <div class="title row">
+                                <div class="col-10">
+                                    <img class="pictogram" ng-src="{{ poi.properties.type.pictogram }}"/>
+                                </div>
+                                <div class="col">
+                                    <h3 class="poi-detail__name">{{ poi.properties.name}}</h3>
+                                    <span ng-if="poi.distanceFromUser" class="poi-detail__distance">&nbsp;({{ 'trek_detail.at' | translate }} {{ poi.distanceFromUser }} km)</span>
+                                </div>
+                            </div>
+                            <div class="picture" ng-if="picture">
+                                 <img ng-if="network_available || trek.tiles.isDownloaded" ng-src="{{ picture.url }}"/>
+                                 <div class="no-image" ng-if="!network_available && !trek.tiles.isDownloaded">
+                                    <span>
+                                        {{ 'image.connect' | translate }}
+                                    </span>
+                                </div>
+                                <span class="picture-legend">{{ picture.legend }} <span ng-if="picture.author">({{ picture.author }})</span></span>
+                            </div>
+                        </div>
+                        <div class="row content">
+                            <div class="poi-detail__description" ng-bind-html="poi.properties.description"></div>
+                        </div>
+                    </ion-item>
+                </div>
+            </div>
+
+            <div class="collapsable-container" ng-repeat="touristicCategory in touristics track by touristicCategory.id" ng-if="touristicCategory.values.length > 0">
+                <div class="collapsable-title" id="{{touristicCategory.id}}" ng-click="toggleTouristicCollapse(touristicCategory.id);">
+                    <div class="collapsable-icon">
+                        <i ng-if="touristicCollapse[touristicCategory.id]" class="ion-plus"></i>
+                        <i ng-if="!touristicCollapse[touristicCategory.id]" class="ion-minus"></i>
+                    </div>
+                    <h2 class="trek-detail__section-title">
+                        <span>{{touristicCategory.label}}</span>
+                        <span class="collapsable-counter" ng-if="showCollapseableCounter">({{touristicCategory.values.length}})</span>
+                    </h2>
+                </div>
+                <div class="collapsable-content" ng-class="{collapsed: touristicCollapse[touristicCategory.id]}">
+                    <ion-item ng-if="touristicCategory.values.length > 0" class="poi-detail" ng-repeat="touristic in touristicCategory.values track by touristic.id" ng-init="picture=touristic.properties.pictures[0]">
+                        <div class="header">
+                            <div class="title row">
+                                <div class="col-10">
+                                    <div class="touristic-category-pictogram">
+                                        <ng-include src="touristic.properties.category.pictogram"></ng-include>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <h3 class="poi-detail__name">{{touristic.properties.name}}</h3>
+                                    <span ng-if="touristic.distanceFromUser" class="poi-detail__distance">&nbsp;({{ 'trek_detail.at' | translate }} {{ touristic.distanceFromUser }} km)</span>
+                                </div>
+                            </div>
+                            <div class="picture" ng-if="picture">
+                                 <img ng-if="network_available || trek.tiles.isDownloaded" ng-src="{{ picture.url }}"/>
+                                 <div class="no-image" ng-if="!network_available && !trek.tiles.isDownloaded">
+                                    <span>
+                                        {{ 'image.connect' | translate }}
+                                    </span>
+                                </div>
+                                <span class="picture-legend">{{ picture.legend }} <span ng-if="picture.author">({{ picture.author }})</span></span>
+                            </div>
+                        </div>
+                        <div class="row content">
+                            <div class="poi-detail__description" ng-bind-html="touristic.properties.description"></div>
+                        </div>
+                    </ion-item>
+                </div>
+            </div>
+
+        </div>
+
+    </ion-content>
+
+    <div class="switch-detail switch-detail-map">
+        <a ui-sref="home.map.trek({ trekId: trek.id, parentId: parentId })" class="trek-detail__back-bt button-icon icon ion-map icon-faces" ng-click="alert('clicked');"></a>
+    </div>
+
+</div>
