@@ -1,6 +1,7 @@
 ![alt text](https://github.com/walker1719/walker/blob/master/logo.png)
 Le bracelet connecté pour la randonnée liée à l'application GEOTREK.
 
+Vidéo de présentation du projet :
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=hwP3JeXwsJ0
 " target="_blank"><img src="http://img.youtube.com/vi/hwP3JeXwsJ0/0.jpg" 
 alt="Walker" width="480" height="360" border="10" /></a>
@@ -16,9 +17,6 @@ Pour ce projet, nous avons utilisé :
 Pour l’application qui est reliée à la RPI 3,  nous avons choisi l’application Geotrek Mobile qui utilise les technologies suivantes:  Cordova 3.6, AngularJS 1.2, Ionic beta 9, Leaflet, jQuery, Bourbon et les outils : Grunt, Bower, Sass.
 Voir les installations à faire pour l’application sur : [Réference](https://github.com/GeotrekCE/Geotrek-mobile)
 
-
-
-LIGNES DE COMMANDES RPI :
 
 ## INSTALLATION DU BLUETOOTH SUR LA RPI3
 Pour implémenter le Bluetooth Low Energy entre le bracelet et l’application Cordova, il faut faire quelques installations sur la RPI3.
@@ -76,7 +74,8 @@ Selon l’architecture de nos fichiers, nous avons écrit cette commande:
 ## INSTALLATION DE LA LIBRAIRE SENSEHAT 
 ```sudo apt-get install sense-hat``` 
 
-
+## SYNCHRONISATION DES DONNEES
+Le bracelet doit être utilisé avec les données d'une API Geotrek-Rando. L'url de l'API à utiliser doit être renseigné dans le fichier [download_treks.py](https://github.com/walker1719/walker/blob/master/Test_guidage/download_treks.py), puis il faut télécharger les données en exécutant le programme avec la commande ```python download_treks.py``` en vérifiant que la Raspberry Pi dispose d'une connexion internet. Il faut ensuite pousser le joystick de la Raspberry Pi vers le bas pour lancer le téléchargement des données.
 
 ## UTILISATION DU GPS
 Avant de brancher la clé GPS à la Raspberry Pi, exécutez la commande suivante pour faire les installations nécessaires :
@@ -91,7 +90,6 @@ Vous devriez voir les informations reçues par le GPS dans votre terminal. Si au
 Votre clé GPS est maintenant prête à être utilisée par le code de Walker.
 
 [Référence](http://www.danmandle.com/blog/getting-gpsd-to-work-with-python/)
-
 
 
 
