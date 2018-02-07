@@ -2,6 +2,7 @@
 Le bracelet connecté pour la randonnée liée à l'application GEOTREK.
 
 Vidéo de présentation du projet :
+
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=hwP3JeXwsJ0
 " target="_blank"><img src="http://img.youtube.com/vi/hwP3JeXwsJ0/0.jpg" 
 alt="Walker" width="480" height="360" border="10" /></a>
