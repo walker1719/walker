@@ -147,6 +147,7 @@ exemple de résultat obtenu :
 En cas d’erreur le message suivant apparaît : Carte SIM non accessible. Dans ce cas soit : 
 - La carte SIM n’est pas compatible avec le modèle de clé GMS 
 - La clé GSM n’est pas compatible avec Gammu. Dans ce cas, se référer à la liste des clé compatibles. 
+
 Si un code PIN est activé 
 ```gammu getsecuritystatus```
       Waiting for PIN.
@@ -156,25 +157,36 @@ Si un code PIN est activé
 
 ### Envoyez un SMS 
 ```gammu sendsms TEXT 06xxxxxxxx -text "Test 1"```
+
 ou
+
 ```echo "Tapez ici votre SMS" | gammu --sendsms TEXT 06XXXXXX```
+
 En réponse, voici ce que la console affiche : 
+```
 If you want break, press Ctrl+C...
 Sending SMS 1/1....waiting for network answer..OK, message reference=1
+```
 
 ## EXPLICATION DE LA COMMUNICATION BLUETOOTH POUR LE TRANSFERT DES DONNEES
 L’utilisateur doit pousser le joystick de la Sense HAT vers le haut afin d’ouvrir une connexion bluetooth côté Raspberry Pi. 
 En effet, cet action déclenche le script bash “walker.sh” qui ouvre le port rfcomm hci0 en et lance en parallèle un script python “read.py” : 
-Ligne de commande afin d’ouvrir le port (dans le fichier walker.sh) : sudo rfcomm listen hci0
+
+Ligne de commande afin d’ouvrir le port (dans le fichier walker.sh) : 
+```sudo rfcomm listen hci0```
+
 Le script “read.py” attend une connexion bluetooth côté application mobile.
+
 exemple avec l’envoi des contacts d’urgence : 
-Une fois les contacts d’urgence définis dans l’application mobile (Paramètres → Conacts d’urgence), l’utilisateur clique sur le bouton “Envoyer au bracelet”. Ceci permet de créer une connexion bluetooth avec le bracelet et d’envoyer les contacts d’urgence. 
-Le bracelet détecte la réception d’un message sur le port rfcomm et agit en conséquence.
-Le type de message est reçu est défini grâce à un ID : 
-ID “1” pour la l’envoi de randonnée 
-ID “2” pour l’envoi des numéros de contacts d’urgence 
-ID “3” pour l’envoi d’une demande de déconnexion. 
- Dans le cas d’une réception de numéros d’urgence [ID 2], les numéros de téléphones sont enregistrés dans le fichier “numeros.txt”.  Lors du transfert de données, la matrice de LED affiche l’icône DU bluetooth. 
+
+Une fois les contacts d’urgence définis dans l’application mobile (Paramètres → Conacts d’urgence), l’utilisateur clique sur le bouton “Envoyer au bracelet”. Ceci permet de créer une connexion bluetooth avec le bracelet et d’envoyer les contacts d’urgence. Le bracelet détecte la réception d’un message sur le port rfcomm et agit en conséquence.
+
+Le type de message reçu est défini grâce à un ID : 
+- ID “1” pour la l’envoi de randonnée 
+- ID “2” pour l’envoi des numéros de contacts d’urgence 
+- ID “3” pour l’envoi d’une demande de déconnexion. 
+
+Dans le cas d’une réception de numéros d’urgence [ID 2], les numéros de téléphones sont enregistrés dans le fichier “numeros.txt”.  Lors du transfert de données, la matrice de LED affiche l’icône DU bluetooth. 
 Il est important de noter que l’application mobile envoie automatiquement 2 messages : le premier contenant les information, puis un message de demande déconnexion. C’est pourquoi, une fois les numéros  écrits dans le fichier, le port rfcomm toujours en écoute reçoit une demande de déconnexion et la connexion bluetooth se ferme automatiquement (fermeture du port côté bracelet)
 Ce fonctionnement est identique pour l’envoi de l’ID de randonnée. Dans ce cas, l’ID envoyée est enregistrée dans le fichier “idrando.txt” 
 
