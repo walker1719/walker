@@ -73,7 +73,10 @@ Selon l’architecture de nos fichiers, nous avons écrit cette commande:
 [Référence](https://stackoverflow.com/questions/30005635/why-doesnt-my-python-script-open-a-text-file-when-run-via-cron?lq=1)
 
 ## INSTALLATION DE LA LIBRAIRE SENSEHAT 
-```sudo apt-get install sense-hat``` 
+```sudo apt-get install sense-hat```
+
+## CALIBRATION DE LA SENSEHAT
+Après avoir branché la SenseHat sur la Raspberry Pi, il est nécessaire d'effectuer sa calibration pour que la boussole fonctionne correctement. Pour cela, suivez les instructions données dans la section "Calibration" de [la documentation officielle de la SenseHat](https://www.raspberrypi.org/documentation/hardware/sense-hat/).
 
 ## SYNCHRONISATION DES DONNEES
 Le bracelet doit être utilisé avec les données d'une API Geotrek-Rando. L'url de l'API à utiliser doit être renseigné dans le fichier [download_treks.py](https://github.com/walker1719/walker/blob/master/Test_guidage/download_treks.py), puis il faut télécharger les données en exécutant le programme avec la commande ```python download_treks.py``` en vérifiant que la Raspberry Pi dispose d'une connexion internet. Il faut ensuite pousser le joystick de la Raspberry Pi vers le bas pour lancer le téléchargement des données.
