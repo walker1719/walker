@@ -1,5 +1,12 @@
 ![alt text](https://github.com/walker1719/walker/blob/master/logo.png)
-Le bracelet connecté pour la randonnée liée à l'application GEOTREK.
+Le bracelet connecté pour la randonnée liée à l'application [GEOTREK](https://github.com/GeotrekCE/Geotrek-mobile).
+
+Partir en randonnée n’est pas un acte anodin. Que vous soyez seul ou en groupe, la marche en montagne nécessite de la préparation et un certain nombre de précautions. Pour aider les randonneurs tout au long de leurs parcours, il existe de nombreuses applications GPS et cartographiques proposant chacune leurs spécificités, cependant peu de fonctionnalités sont développées afin de garantir la sécurité du randonneur.
+ 
+Dans la mesure où la randonnée est une activité nécessitant de nombreuses précautions, nous nous étions posées la question: comment fournir aux randonneurs une solution innovante et optimale leur permettant de se déplacer en toute sécurité quel que soit le type de randonnée ?
+
+Afin de répondre à cette problématique nous avons crée WALKER!
+WALKER est un projet étudiant réalisé par des passionnées de randonnées afin de fournir une solution de guidage et de sécurité à l'application GEOTREK, une application de randonnée. 
 
 Vidéo de présentation du projet :
 
